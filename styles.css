@@ -1,0 +1,63 @@
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+}
+
+z {
+    margin-top: auto;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+button {
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+button:hover {
+    background: #eee;
+}
+
+.navbar {
+    background: white;
+    padding: 1rem;
+    display: flex;
+    height: 2rem;
+    position: absolute;
+}
+
+.selection {
+    margin-right: auto;
+}
+
+.customize {
+    margin-left: auto;
+}
+
+.column {
+    background: white;
+    max-height: 100%;
+    width: 200px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.range {
+    width: 100%;
+}
