@@ -60,6 +60,7 @@ button:hover {
 .column {
     background: url("./noise.png") repeat scroll left top;
     background-color: #fdfdfd;
+    outline: 2px solid black;
     max-height: 100%;
     width: 200px;
     padding: 1rem;
