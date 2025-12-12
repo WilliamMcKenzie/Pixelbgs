@@ -167,7 +167,7 @@ animate()
 	a.href = URL.createObjectURL(file)
 	a.download = "bg.js"
 	
-	await fetch("http://100.28.2.231:8080/download", {
+	await fetch("https://100.28.2.231:8080/download", {
 		method: "POST"
 	})
 	
@@ -176,7 +176,7 @@ animate()
 
 
 async function updateDownloads(){
-	let data = await fetch("http://100.28.2.231:8080/getdownloads", {
+	let data = await fetch("https://100.28.2.231:8080/getdownloads", {
 		method: "GET"
 	})
 	
