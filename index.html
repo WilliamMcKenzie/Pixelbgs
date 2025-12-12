@@ -1,27 +1,19 @@
 <html>
     <header>
         <title>pixelbgs</title>
-        <link rel="stylesheet" href="./styles.css?random=2"></link>
+        <link rel="stylesheet" href="./styles.css?random=pso"></link>
     </header>
     <body>
         <main>
             <div class="selection column">
-                pixelbgs by
-                <a href="https://williamqm.com">
-                    williamqm
-                </a>
+				<img src="pixelbgs.png?pf"/>
                 <br>
-                <table>
-                    <tr>
-                        <td><button onclick="select(quasicrystals)">Quasicrystals</button></td>
-                    </tr>
-                    <tr>
+                <td><button onclick="select(quasicrystals)">Quasicrystals</button></td>
+                        <br>
                         <td><button onclick="select(sinwaves)">Sinwaves</button></td>
-                    </tr>
-                    <tr>
-                        <td><button onclick="select(mouseeffects)">Mouse effects</button></td>
-                    </tr>
-                </table>
+                        <br>
+                <td><button onclick="select(mouseeffects)">Mouse effects</button></td>
+                        <br>
                 <z></z>
                 <button onclick="download(color, seed.value, pixel, zoom, speed)">
 					Generate bg
@@ -38,7 +30,7 @@
                 <table>
                     <tr>
                         <td>
-                            <input onchange="setcolor()" type="color" id="color" value="#9ecb67">
+                            <input onchange="setcolor()" type="color" id="color" value="#e0b467">
                         </td>
                     </tr>
                     <tr>
@@ -69,9 +61,11 @@
                         </td>
                     </tr>
                 </table>
+                <z></z>
+                <a href="https://williamqm.com">By williamqm</a>
             </div>
         </main>
-        <script src="./pixelbgs.js"></script>
-        <script src="./downloads.js?random=1"></script>
+        <script src="./pixelbgs.js?10"></script>
+        <script src="./downloads.js?random=1000"></script>
     </body>
 </html>

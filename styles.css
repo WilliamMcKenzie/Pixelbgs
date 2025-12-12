@@ -10,6 +10,12 @@ main {
     height: 100vh;
 }
 
+img {
+	image-rendering: pixelated;
+	background: #fff;
+	padding: 1rem;
+}
+
 z {
     margin-top: auto;
 }
@@ -23,6 +29,7 @@ canvas {
 
 button {
     background: transparent;
+    outline: 2px solid black;
     border: none;
     width: 100%;
     padding: 0.5rem;
@@ -51,7 +58,8 @@ button:hover {
 }
 
 .column {
-    background: rgba(255,255,255,0.9);
+    background: url("./noise.png") repeat scroll left top;
+    background-color: #fdfdfd;
     max-height: 100%;
     width: 200px;
     padding: 1rem;

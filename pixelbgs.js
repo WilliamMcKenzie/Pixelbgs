@@ -3,7 +3,7 @@ const html = document.querySelector('html')
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 const seed = document.getElementById("seed")
-let color = "#9ecb67"
+let color = "#e0b467"
 let pixel = 8
 let zoom = 8
 let speed = 8
@@ -128,7 +128,7 @@ function select(f) {
     current = f
 
     if (f == quasicrystals) {
-		color = "#9ecb67"
+		color = "#e0b467"
 		document.getElementById('color').value = color
         zoom = 8
         document.getElementById("zoom").value = 8
@@ -137,7 +137,7 @@ function select(f) {
         seed.value = 4.2
     }
     if (f == sinwaves) {
-		color = "#67bfcb"
+		color = "#d3513e"
 		document.getElementById('color').value = color
         zoom = 8
         document.getElementById("zoom").value = 8
@@ -146,7 +146,7 @@ function select(f) {
         seed.value = 1.6
     }
     if (f == mouseeffects) {
-		color = "#e298c7"
+		color = "#6bb7ee"
 		document.getElementById('color').value = color
         seed.value = 9.4
     }
