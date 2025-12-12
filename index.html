@@ -1,7 +1,7 @@
 <html>
     <header>
         <title>pixelbgs</title>
-        <link rel="stylesheet" href="styles.css"></link>
+        <link rel="stylesheet" href="./styles.css?random=2"></link>
     </header>
     <body>
         <main>
@@ -22,13 +22,23 @@
                         <td><button onclick="select(mouseeffects)">Mouse effects</button></td>
                     </tr>
                 </table>
+                <z></z>
+                <button onclick="download(color, seed.value, pixel, zoom, speed)">
+					Generate bg
+					<a id="download-counter" style="margin-left: auto;">
+						total: 0
+					</a>
+                </button>
+                <a id="download" href="">
+					
+                </a>
             </div>
             <canvas></canvas>
             <div class="customize column">
                 <table>
                     <tr>
                         <td>
-                            <input type="color" id="color" value="#9ecb67">
+                            <input onchange="setcolor()" type="color" id="color" value="#9ecb67">
                         </td>
                     </tr>
                     <tr>
@@ -59,11 +69,9 @@
                         </td>
                     </tr>
                 </table>
-                <!-- <z>
-                    100 bgs generated
-                </z> -->
             </div>
         </main>
-        <script src="pixelbgs.js"></script>
+        <script src="./pixelbgs.js"></script>
+        <script src="./downloads.js?random=1"></script>
     </body>
 </html>

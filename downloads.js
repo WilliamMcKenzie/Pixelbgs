@@ -1,12 +1,17 @@
-let current = quasicrystals
+async function download(color, seed, pixel, zoom, speed) {
+	let contents = `
 const html = document.querySelector('html')
-const canvas = document.querySelector('canvas')
+const body = document.querySelector('body')
+const canvas = document.createElement('canvas')
 const ctx = canvas.getContext('2d')
-const seed = document.getElementById("seed")
-let color = "#9ecb67"
-let pixel = 8
-let zoom = 8
-let speed = 8
+const color = '${color}'
+const seed = ${seed}
+body.appendChild(canvas)
+canvas.style = 'position: absolute; top: 0; left: 0; z-index: -1;'
+
+let pixel = ${pixel}
+let zoom = ${zoom}
+let speed = ${speed}
 
 let cursorX = window.innerWidth / 2
 let cursorY = window.innerHeight / 2
@@ -17,14 +22,38 @@ function randi() {
     return Math.floor(Math.random() * 999)
 }
 
-function changebg(color) {
-    html.style.backgroundColor = color
-    canvas.style.backgroundColor = color
-}
-
 function pixellate(x) {
     return pixel * Math.round(x / pixel)
 }
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    offset += (speed/128)
+    backgroundLoop()
+    requestAnimationFrame(animate)
+}
+
+window.addEventListener('resize', resizeCanvas)
+function resizeCanvas() {
+    canvas.width = window.innerWidth
+    canvas.height = Math.max(html.clientHeight, html.scrollHeight, html.offsetHeight)
+}
+
+document.addEventListener('mousemove', function(event) {
+  cursorX = event.clientX
+  cursorY = event.clientY
+})
+
+
+
+
+
+
+	`
+	
+	
+	if (current == quasicrystals) {
+		contents += `
 
 function getOpacity(x, y, angle) {
 	let angledX = Math.cos(angle) * x
@@ -35,16 +64,17 @@ function getOpacity(x, y, angle) {
 function getColor(x, y) {
 	let opacity = 0
 	let angle = 2 * Math.PI
-	let delta = angle / seed.value
-	for (let i = 0; i < seed.value; i++) {
+	let delta = angle / seed
+	for (let i = 0; i < seed; i++) {
 		opacity += getOpacity(x, y, angle)
 		angle -= delta
 	}
 
-	return (opacity / seed.value > 0.5) ? color : "transparent"
+	return (opacity / seed > 0.5) ? color : "transparent"
 }
 
-function quasicrystals() {
+
+function backgroundLoop() {
     for (let x = -canvas.width/2; x < canvas.width/2; x += pixel) {
         for (let y = -canvas.height/2; y < canvas.height/2; y += pixel) {
             ctx.fillStyle = getColor((x / zoom), (y / zoom))
@@ -53,14 +83,22 @@ function quasicrystals() {
     }
 }
 
+resizeCanvas()
+animate()
+
+		`
+	}
+	
+	if (current == sinwaves) {
+		contents += `
 
 function renderPoint(x) {
-	let y = Math.sin((offset + x * seed.value))
+	let y = Math.sin((offset + x * seed))
 	y *= (zoom / 8)
 	return y
 }
 
-function sinwaves() {
+function backgroundLoop() {
     ctx.fillStyle = color
 
     for (let i = 0; i < canvas.width; i += 1) {
@@ -88,7 +126,16 @@ function sinwaves() {
 }
 
 
-function mouseeffects() {
+resizeCanvas()
+animate()
+	
+`
+	}
+	
+	if (current == mouseeffects) {
+		contents += `
+
+function backgroundLoop() {
     const radius = 160
     const radiussquared = radius ** 2
 
@@ -96,8 +143,8 @@ function mouseeffects() {
 
     for (let i = -radius; i < radius; i += 1) {
         let y = Math.sqrt(radiussquared - i ** 2)
-        let sinwave = (16 * zoom) * Math.sin(offset + (i) * seed.value * 4)
-        // Best ones: 1000, 40, 57, 63, 69, 1.618 * 1000, 1.64 * 69
+        let sinwave = (16 * zoom) * Math.sin(offset + (i) * seed * 4)
+        // Best seeds: 1000, 40, 57, 63, 69, 1.618 * 1000, 1.64 * 69
 
         ctx.fillRect(pixellate(cursorX + i), pixellate(sinwave + cursorY + y), pixel, pixel)
         ctx.fillRect(pixellate(cursorX + i), pixellate(sinwave + cursorY - y), pixel, pixel)
@@ -106,67 +153,38 @@ function mouseeffects() {
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    offset += (speed/128)
-    current()
-    requestAnimationFrame(animate)
-}
-
-window.addEventListener('resize', resizeCanvas)
-function resizeCanvas() {
-    canvas.width = window.innerWidth
-    canvas.height = Math.max(html.clientHeight, html.scrollHeight, html.offsetHeight)
-}
-
-document.addEventListener('mousemove', function(event) {
-  cursorX = event.clientX
-  cursorY = event.clientY
-})
-
-function select(f) {
-    current = f
-
-    if (f == quasicrystals) {
-		color = "#9ecb67"
-		document.getElementById('color').value = color
-        zoom = 8
-        document.getElementById("zoom").value = 8
-        pixel = 8
-        document.getElementById("resolution").value = 8
-        seed.value = 4.2
-    }
-    if (f == sinwaves) {
-		color = "#67bfcb"
-		document.getElementById('color').value = color
-        zoom = 8
-        document.getElementById("zoom").value = 8
-        pixel = 4
-        document.getElementById("resolution").value = 20
-        seed.value = 1.6
-    }
-    if (f == mouseeffects) {
-		color = "#e298c7"
-		document.getElementById('color').value = color
-        seed.value = 9.4
-    }
-}
-
-function zoomin() {
-    zoom = parseInt(document.getElementById('zoom').value)
-}
-
-function resolution() {
-    pixel = 24 - parseInt(document.getElementById('resolution').value)
-}
-
-function setspeed() {
-    speed = parseInt(document.getElementById('speed').value)
-}
-
-function setcolor() {
-    color = document.getElementById('color').value
-}
-
 resizeCanvas()
 animate()
+
+	
+`
+	}
+	
+	
+	let file = new Blob([contents], {type: "text/plain"})
+	let a = document.getElementById("download")
+	a.innerHTML = "download bg.js"
+	a.href = URL.createObjectURL(file)
+	a.download = "bg.js"
+	
+	await fetch("http://100.28.2.231:8080/download", {
+		method: "POST"
+	})
+	
+	updateDownloads()
+}
+
+
+async function updateDownloads(){
+	let data = await fetch("http://100.28.2.231:8080/getdownloads", {
+		method: "GET"
+	})
+	
+	let downloads = await data.json()
+	document.getElementById("download-counter").innerHTML = `total: ${downloads}`
+	console.log(downloads)
+}
+
+updateDownloads()
+
+

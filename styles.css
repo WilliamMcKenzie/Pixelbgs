@@ -27,6 +27,7 @@ button {
     width: 100%;
     padding: 0.5rem;
     text-align: left;
+    display: flex;
 }
 
 button:hover {
@@ -50,7 +51,7 @@ button:hover {
 }
 
 .column {
-    background: white;
+    background: rgba(255,255,255,0.9);
     max-height: 100%;
     width: 200px;
     padding: 1rem;
