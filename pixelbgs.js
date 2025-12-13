@@ -135,20 +135,30 @@ function select(f) {
         pixel = 8
         document.getElementById("resolution").value = 8
         seed.value = 4.2
+        document.getElementById("speed").value = 8
+        speed = 8
     }
     if (f == sinwaves) {
-		color = "#d3513e"
+		color = ["#d3513e", "#263397", "#e0b467", "#6bb7ee"][randi() % 4]
 		document.getElementById('color').value = color
-        zoom = 8
-        document.getElementById("zoom").value = 8
-        pixel = 4
-        document.getElementById("resolution").value = 20
-        seed.value = 1.6
+        zoom = randi() % 24
+        document.getElementById("zoom").value = zoom
+        pixel = 24 - (randi() % 20)
+        document.getElementById("resolution").value = 24 - pixel
+        seed.value = (randi() % 200) / 10
+        speed = randi() % 64
+        document.getElementById("speed").value = speed
     }
     if (f == mouseeffects) {
 		color = "#6bb7ee"
 		document.getElementById('color').value = color
-        seed.value = 9.4
+		zoom = 3
+        document.getElementById("zoom").value = 3
+        pixel = 4
+        document.getElementById("resolution").value = 20
+        seed.value = 15.1
+        document.getElementById("speed").value = 24
+        speed = 24
     }
 }
 
